@@ -3,16 +3,16 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/name: prometheus-operator-tph
+    app.kubernetes.io/name: prometheus-operator-mdt
     app.kubernetes.io/version: v0.33.0
-  name: prometheus-operator-tph
+  name: prometheus-operator-mdt
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus-operator-tph
+  name: prometheus-operator-mdt
 subjects:
 - kind: ServiceAccount
-  name: prometheus-operator-tph
+  name: prometheus-operator-mdt
   namespace: tph2-monitoring
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -20,9 +20,9 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/name: prometheus-operator-tph
+    app.kubernetes.io/name: prometheus-operator-mdt
     app.kubernetes.io/version: v0.33.0
-  name: prometheus-operator-tph
+  name: prometheus-operator-mdt
 rules:
 - apiGroups:
   - apiextensions.k8s.io
@@ -94,21 +94,21 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/name: prometheus-operator-tph
+    app.kubernetes.io/name: prometheus-operator-mdt
     app.kubernetes.io/version: v0.33.0
-  name: prometheus-operator-tph
+  name: prometheus-operator-mdt
   namespace: tph2-monitoring
 spec:
   replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/component: controller
-      app.kubernetes.io/name: prometheus-operator-tph
+      app.kubernetes.io/name: prometheus-operator-mdt
   template:
     metadata:
       labels:
         app.kubernetes.io/component: controller
-        app.kubernetes.io/name: prometheus-operator-tph
+        app.kubernetes.io/name: prometheus-operator-mdt
         app.kubernetes.io/version: v0.33.0
     spec:
       containers:
@@ -118,7 +118,7 @@ spec:
         - --config-reloader-image=quay.io/coreos/configmap-reload:v0.0.1
         - --prometheus-config-reloader=quay.io/coreos/prometheus-config-reloader:v0.33.0
         image: quay.io/coreos/prometheus-operator:v0.33.0
-        name: prometheus-operator-tph
+        name: prometheus-operator-mdt
         ports:
         - containerPort: 8080
           name: http
@@ -134,16 +134,16 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000730001
-      serviceAccountName: prometheus-operator-tph
+      serviceAccountName: prometheus-operator-mdt
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/name: prometheus-operator-tph
+    app.kubernetes.io/name: prometheus-operator-mdt
     app.kubernetes.io/version: v0.33.0
-  name: prometheus-operator-tph
+  name: prometheus-operator-mdt
   namespace: tph2-monitoring
 ---
 apiVersion: v1
@@ -151,9 +151,9 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/name: prometheus-operator-tph
+    app.kubernetes.io/name: prometheus-operator-mdt
     app.kubernetes.io/version: v0.33.0
-  name: prometheus-operator-tph
+  name: prometheus-operator-mdt
   namespace: tph2-monitoring
 spec:
   clusterIP: None
@@ -163,4 +163,4 @@ spec:
     targetPort: http
   selector:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/name: prometheus-operator-tph
+    app.kubernetes.io/name: prometheus-operator-mdt

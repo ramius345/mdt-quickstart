@@ -16,13 +16,28 @@ openshift_cluster_content:
           - dashboard-sdm
   - object: Uber Prometheus
     content:
+      - name: Prometheus operator
+        file: "{{ inventory_dir }}/../prometheus-operator-config.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
       - name: Scrape config secret
         file: "{{ inventory_dir }}/../prometheus-scrape-config-secret.yml"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
-      - name: Prometheus CRD
-        file: "{{ inventory_dir }}/../prometheus-crd.yml"
+      - name: Prometheus CR
+        file: "{{ inventory_dir }}/../prometheus-cr.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
+      - name: Prometheus Service
+        file: "{{ inventory_dir }}/../prometheus-svc.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
+      - name: Prometheus Route
+        file: "{{ inventory_dir }}/../prometheus-route.yml"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm

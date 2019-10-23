@@ -1,12 +1,12 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
-  name: prometheus
+  name: prometheus-mdt
   labels:
-    prometheus: prometheus
+    prometheus: prometheus-mdt
 spec:
   replicas: 2
-  serviceAccountName: prometheus
+  serviceAccountName: prometheus-operator-mdt
   additionalScrapeConfigs:
     name: additional-scrape-configs
     key: prometheus-additional.yml

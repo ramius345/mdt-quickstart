@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  creationTimestamp: null
+  name: prometheus-mdt
+spec:
+  host:
+  port:
+    targetPort: web
+  to:
+    kind: Service
+    name: prometheus-mdt
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: null
