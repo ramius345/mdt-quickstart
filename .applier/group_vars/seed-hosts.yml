@@ -14,3 +14,15 @@ openshift_cluster_content:
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
+  - object: Uber Prometheus
+    content:
+      - name: Scrape config secret
+        file: "{{ inventory_dir }}/../prometheus-scrape-config-secret.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
+      - name: Prometheus CRD
+        file: "{{ inventory_dir }}/../prometheus-crd.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
