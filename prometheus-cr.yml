@@ -7,6 +7,9 @@ metadata:
 spec:
   replicas: 2
   serviceAccountName: prometheus-operator-mdt
+  serviceMonitorSelector:
+    matchLabels:
+      junk: junk
   additionalScrapeConfigs:
     name: additional-scrape-configs
     key: prometheus-additional.yml
