@@ -1,4 +1,20 @@
 dashboard_namespace: custom-dashboards
+prometheus_scrape_config:
+  - job_name: "federated-local-prometheus"
+    scrape_interval: 15s
+    honor_labels: true
+    metrics_path: '/federate'
+    params:
+      'match[]':
+        - '{job="openshift-state-metrics"}'
+    scheme: "https"
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets:
+          - "prometheus-k8s.openshift-monitoring.svc.cluster.local:9091"
+          - "prometheus-k8s-openshift-monitoring.apps.cluster-9c34.sandbox302.opentlc.com"
+
 openshift_cluster_content:
   - object: Dashboards - DevOps
     content:
@@ -27,7 +43,7 @@ openshift_cluster_content:
         tags:
           - dashboard-sdm
       - name: Scrape config secret
-        file: "{{ inventory_dir }}/../prometheus-scrape-config-secret.yml"
+        file: "{{ inventory_dir }}/../prometheus-scrape-config-secret.yml.j2"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
