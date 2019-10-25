@@ -1,4 +1,4 @@
-dashboard_namespace: openshift-monitoring
+dashboard_namespace: custom-dashboards
 openshift_cluster_content:
   - object: Dashboards - DevOps
     content:
@@ -16,8 +16,13 @@ openshift_cluster_content:
           - dashboard-sdm
   - object: Uber Prometheus
     content:
+      - name: Monitored prometheus perms
+        file: "{{ inventory_dir }}/../k8s_prometheus.yml"
+        namespace: openshift-monitoring
+        tags:
+          - dashboard-sdm
       - name: Prometheus operator
-        file: "{{ inventory_dir }}/../prometheus-operator-config.yml"
+        file: "{{ inventory_dir }}/../prometheus-operator-config.yml.j2"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm

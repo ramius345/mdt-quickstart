@@ -13,7 +13,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: prometheus-operator-mdt
-  namespace: tph2-monitoring
+  namespace: {{ dashboard_namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -97,7 +97,7 @@ metadata:
     app.kubernetes.io/name: prometheus-operator-mdt
     app.kubernetes.io/version: v0.33.0
   name: prometheus-operator-mdt
-  namespace: tph2-monitoring
+  namespace: {{ dashboard_namespace }}
 spec:
   replicas: 1
   selector:
@@ -133,7 +133,8 @@ spec:
           allowPrivilegeEscalation: false
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000730001
+        #  runAsUser: 1000730001
+        runAsUser: 1000360001
       serviceAccountName: prometheus-operator-mdt
 ---
 apiVersion: v1
@@ -144,7 +145,7 @@ metadata:
     app.kubernetes.io/name: prometheus-operator-mdt
     app.kubernetes.io/version: v0.33.0
   name: prometheus-operator-mdt
-  namespace: tph2-monitoring
+  namespace: {{ dashboard_namespace }}
 ---
 apiVersion: v1
 kind: Service
@@ -154,7 +155,7 @@ metadata:
     app.kubernetes.io/name: prometheus-operator-mdt
     app.kubernetes.io/version: v0.33.0
   name: prometheus-operator-mdt
-  namespace: tph2-monitoring
+  namespace: {{ dashboard_namespace }}
 spec:
   clusterIP: None
   ports:
