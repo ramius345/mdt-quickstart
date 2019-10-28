@@ -131,10 +131,10 @@ spec:
             memory: 100Mi
         securityContext:
           allowPrivilegeEscalation: false
-      securityContext:
-        runAsNonRoot: true
+      # securityContext:
+        # runAsNonRoot: true
         #  runAsUser: 1000730001
-        runAsUser: 1000360001
+        #  runAsUser: 1000360001
       serviceAccountName: prometheus-operator-mdt
 ---
 apiVersion: v1
