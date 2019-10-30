@@ -54,13 +54,6 @@ openshift_cluster_content:
           - dashboard-sdm
   - object: Uber Prometheus
     content:
-      #todo: remove this, won't work on 4
-      # - name: Monitored prometheus perms
-      #   file: "{{ inventory_dir }}/../k8s_prometheus.yml"
-      #   namespace: openshift-monitoring
-      #   tags:
-      #     - dashboard-sdm
-
       - name: Prometheus operator
         file: "{{ inventory_dir }}/../prometheus-operator-config.yml.j2"
         namespace: "{{ dashboard_namespace }}"
