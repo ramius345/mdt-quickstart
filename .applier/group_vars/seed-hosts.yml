@@ -1,6 +1,6 @@
 dashboard_namespace: custom-dashboards
 prometheus_scrape_config:
-  - job_name: "federated--prometheus-1"
+  - job_name: "federated-prometheus-1"
     scrape_interval: 15s
     honor_labels: true
     metrics_path: '/federate'
@@ -16,7 +16,9 @@ prometheus_scrape_config:
     static_configs:
       - targets:
           - "prometheus-k8s.openshift-monitoring.svc.cluster.local:9091"
-  - job_name: "federated--prometheus-2"
+        labels:
+          federated_job: "federated-prometheus-1"
+  - job_name: "federated-prometheus-2"
     scrape_interval: 15s
     honor_labels: true
     metrics_path: '/federate'
@@ -32,6 +34,8 @@ prometheus_scrape_config:
     static_configs:
       - targets:
           - "prometheus-k8s-openshift-monitoring.apps.ci-1.cop.rht-labs.com"
+        labels:
+          federated_job: "federated-prometheus-2"
 
 openshift_cluster_content:
   - object: Dashboards - DevOps
