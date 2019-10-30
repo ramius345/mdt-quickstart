@@ -4,10 +4,16 @@ metadata:
   labels:
     prometheus: prometheus-mdt
   name: prometheus-mdt
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: prometheus-mdt-tls
 spec:
   ports:
   - name: web
     port: 9090
+    protocol: TCP
+    targetPort: web
+  - name: web-tls
+    port: 9091
     protocol: TCP
     targetPort: web
   selector:
