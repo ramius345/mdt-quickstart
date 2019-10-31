@@ -15,6 +15,7 @@ spec:
     key: prometheus-additional.yml
   secrets:
     - prometheus-mdt-tls
+    - prometheus-mdt-htpasswd
   containers:
   - args:
     - -provider=openshift
@@ -46,6 +47,6 @@ spec:
     # - mountPath: /etc/proxy/secrets
     #   name: secret-prometheus-k8s-proxy
     - mountPath: /etc/proxy/htpasswd
-      name: secret-prometheus-k8s-htpasswd
+      name: secret-prometheus-mdt-htpasswd
 
         
