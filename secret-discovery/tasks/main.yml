@@ -21,7 +21,7 @@
 
 - name: Decode grafana datasources data
   set_fact:
-    grafana_datasources_with_mdt_prometheus_encoded: "{{ grafana_datasources_data.resources[0]['data']['prometheus.yaml'] }}"
+    grafana_datasources_with_mdt_prometheus_encoded: "{{ grafana_datasources_data.resources[0]['data'] }}"
 
 - name: Print variables
   debug:
