@@ -25,7 +25,7 @@
 
 - name: Setup new grafana datasources config
   set_fact:
-    new_grafana_datasources_mdt_data:
+    new_grafana_datasources_mdt_data_yaml:
       apiVersion: 1
       datasources:
         - access: "proxy"
@@ -41,8 +41,12 @@
           url: "https://prometheus-mdt.{{ dashboard_namespace }}.svc:9091"
           version: 1
 
+- name: Setup new grafana datasources config encoded
+  set_fact:
+    new_grafana_datasources_mdt_data: "{{ new_grafana_datasources_mdt_data_yaml | to_nice_json | b64encode }}"
+
 - name: Print variables
   debug:
     msg: >-
-      Data: "{{ new_grafana_datasources_mdt_data | to_nice_json }}"
+      Data: "{{ new_grafana_datasources_mdt_data }}"
     verbosity: 2
