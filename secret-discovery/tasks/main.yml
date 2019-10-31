@@ -72,9 +72,38 @@
             federated_job: "federated-prometheus-local"
 
 
+- name: Setup additional prometheus instance configurations loop
+  set_fact: 
+    additional_host:
+      job_name: "federated-prometheus-{{ item.id }}"
+      scrape_interval: 15s
+      honor_labels: true
+      metrics_path: '/federate'
+      params:
+        'match[]':
+          - '{job="openshift-state-metrics"}'
+      scheme: "https"
+      basic_auth:
+        username: 'internal'
+        password: "{{ item.password }}"
+      tls_config:
+        insecure_skip_verify: true
+      static_configs:
+        - targets:
+            - "{{ item.hostname }}"
+          labels:
+            federated_job: "federated-prometheus-{{ item.id }}"
+  loop: "{{ extra_prometheus_hosts }}"
+  register: loop_result
+
+
+- name: Setup additional prometheus instance process list
+  set_fact:
+    additional_hosts: "{{ loop_result.results | map(attribute='ansible_facts.additional_host') | list }}"
+
 - name: Print variables
   debug:
     msg: >-
-      Data: {{ internal_prometheus_list }}
+      Data: {{ additional_hosts }}
     verbosity: 2
 -
