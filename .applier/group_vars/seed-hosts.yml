@@ -38,7 +38,8 @@ prometheus_scrape_config:
           federated_job: "federated-prometheus-2"
 
 openshift_cluster_content:
-  - galaxy_requirements: "{{ inventory_dir }}/../mdt-secret-discovery-requirements.yml"
+  - galaxy_requirements: 
+      - "{{ inventory_dir }}/../mdt-secret-discovery-requirements.yml"
   - object: Dashboards - DevOps
     content:
       - name: Software Delivery Metrics Dashboard
@@ -54,9 +55,14 @@ openshift_cluster_content:
         tags:
           - dashboard-sdm
   - object: MDT Prometheus
-    pre-steps:
-      - role: mdt-quickstart/secret-discovery
     content:
+      - name: MDT Prometheus htpasswd secret
+        pre-steps:
+          - role: mdt-quickstart/secret-discovery
+        file: "{{ inventory_dir }}/../prometheus-htpasswd-secret.yml.j2"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
       - name: MDT Prometheus operator
         file: "{{ inventory_dir }}/../prometheus-operator-config.yml.j2"
         namespace: "{{ dashboard_namespace }}"
@@ -93,10 +99,5 @@ openshift_cluster_content:
           - dashboard sdm
       - name: MDT Prometheus Oauth ClusterRoleBinding
         file: "{{ inventory_dir }}/../prometheus-oauth-cluster-role-binding.yml.j2"
-        tags:
-          - dashboard-sdm
-      - name: MDT Prometheus htpasswd secret
-        file: "{{ inventory_dir }}/../prometheus-htpasswd-secret.yml.j2"
-        namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
