@@ -15,7 +15,7 @@ spec:
   - name: web-tls
     port: 9091
     protocol: TCP
-    targetPort: web
+    targetPort: web-tls
   selector:
     app: prometheus
     prometheus: prometheus-mdt

@@ -6,9 +6,12 @@ metadata:
   creationTimestamp: null
   name: prometheus-mdt
 spec:
-  host:
   port:
-    targetPort: web
+    targetPort: web-tls
+  subdomain: ""
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
   to:
     kind: Service
     name: prometheus-mdt

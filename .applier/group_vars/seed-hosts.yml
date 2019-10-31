@@ -38,6 +38,9 @@ prometheus_scrape_config:
           federated_job: "federated-prometheus-2"
 
 openshift_cluster_content:
+  - galaxy_requirements: "{{ inventory_dir }}/../mdt-secret-discovery-requirements.yml"
+    pre-steps:
+      - role: mdt-quickstart/secret-discovery
   - object: Dashboards - DevOps
     content:
       - name: Software Delivery Metrics Dashboard
@@ -52,30 +55,48 @@ openshift_cluster_content:
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
-  - object: Uber Prometheus
+  - object: MDT Prometheus
     content:
-      - name: Prometheus operator
+      - name: MDT Prometheus operator
         file: "{{ inventory_dir }}/../prometheus-operator-config.yml.j2"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
-      - name: Scrape config secret
+      - name: MDT Scrape config secret
         file: "{{ inventory_dir }}/../prometheus-scrape-config-secret.yml.j2"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
-      - name: Prometheus CR
+      - name: MDT Prometheus CR
         file: "{{ inventory_dir }}/../prometheus-cr.yml"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
-      - name: Prometheus Service
+      - name: MDT Prometheus Service
         file: "{{ inventory_dir }}/../prometheus-svc.yml"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
-      - name: Prometheus Route
+      - name: MDT Prometheus Route
         file: "{{ inventory_dir }}/../prometheus-route.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
+      - name: MDT Prometheus Oauth Cluster Role
+        file: "{{ inventory_dir}}/../prometheus-oauth-cluster-role.yml"
+        tags:
+          - dashboard-sdm
+      - name: MDT Prometheus Oauth Service Account
+        file: "{{ inventory_dir }}/../prometheus-sa.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard sdm
+      - name: MDT Prometheus Oauth ClusterRoleBinding
+        file: "{{ inventory_dir }}/../prometheus-oauth-cluster-role-binding.yml.j2"
+        tags:
+          - dashboard-sdm
+      - name: MDT Prometheus htpasswd secret
+        file: "{{ inventory_dir }}/../prometheus-htpasswd-secret.yml.j2"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
