@@ -39,8 +39,6 @@ prometheus_scrape_config:
 
 openshift_cluster_content:
   - galaxy_requirements: "{{ inventory_dir }}/../mdt-secret-discovery-requirements.yml"
-    pre-steps:
-      - role: mdt-quickstart/secret-discovery
   - object: Dashboards - DevOps
     content:
       - name: Software Delivery Metrics Dashboard
@@ -56,6 +54,8 @@ openshift_cluster_content:
         tags:
           - dashboard-sdm
   - object: MDT Prometheus
+    pre-steps:
+      - role: mdt-quickstart/secret-discovery
     content:
       - name: MDT Prometheus operator
         file: "{{ inventory_dir }}/../prometheus-operator-config.yml.j2"

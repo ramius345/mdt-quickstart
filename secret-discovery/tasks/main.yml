@@ -10,3 +10,9 @@
 - name: Set mdt prometheus htpasswd secret fact
   set_fact: 
     mdt_prometheus_htpasswd_auth: "{{ prometheus_k8s_htpasswd_data.resources[0]['data']['auth'] }}"
+
+- name: Print variables
+  debug:
+    msg: >-
+      {{ mdt_prometheus_htpasswd_auth }}
+    verbosity: 2
