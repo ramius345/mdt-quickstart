@@ -32,7 +32,7 @@
           basicAuth: true
           basicAuthPassword: "{{ orig_grafana_datasources_with_prometheus['datasources'][0]['basicAuthPassword'] }}"
           basicAuthUser: "internal"
-          editable: false
+          editable: true
           jsonData:
             tlsSkipVerify: "true"
           name: "prometheus"

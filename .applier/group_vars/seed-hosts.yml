@@ -40,20 +40,6 @@ prometheus_scrape_config:
 openshift_cluster_content:
   - galaxy_requirements: 
       - "{{ inventory_dir }}/../mdt-secret-discovery-requirements.yml"
-  - object: Dashboards - DevOps
-    content:
-      - name: Software Delivery Metrics Dashboard
-        file: "{{ inventory_dir }}/../dashboard-sdm.yml"
-        namespace: "{{ dashboard_namespace }}"
-        tags:
-          - dashboard-sdm
-      - name: Mount Software Delivery Dashboard to Grafana
-        action: patch
-        file: "{{ inventory_dir }}/../grafana-deployment.yml"
-        params: "{{ inventory_dir }}/../sdm-volume-patch.yml"
-        namespace: "{{ dashboard_namespace }}"
-        tags:
-          - dashboard-sdm
   - object: MDT Prometheus
     pre_steps:
       - role: mdt-quickstart/secret-discovery
@@ -103,6 +89,20 @@ openshift_cluster_content:
           - dashboard-sdm
       - name: MDT Repoint Grafana Datasource
         file: "{{ inventory_dir }}/../grafana-mdt-datasources.yml.j2"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
+  - object: Dashboards - DevOps
+    content:
+      - name: Software Delivery Metrics Dashboard
+        file: "{{ inventory_dir }}/../dashboard-sdm.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
+      - name: Mount Software Delivery Dashboard to Grafana
+        action: patch
+        file: "{{ inventory_dir }}/../grafana-deployment.yml"
+        params: "{{ inventory_dir }}/../sdm-volume-patch.yml"
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
