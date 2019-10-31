@@ -95,18 +95,26 @@
             federated_job: "federated-prometheus-{{ item.id }}"
   loop: "{{ extra_prometheus_hosts }}"
   register: loop_result
+  when: extra_prometheus_hosts is defined
 
 - name: Setup additional prometheus instance process list
   set_fact:
     additional_hosts: "{{ loop_result.results | map(attribute='ansible_facts.additional_host') | list }}"
+  when: extra_prometheus_hosts is defined
+
+- name: Setup MDT prometheus scrape config with additional hosts
+  set_fact:
+    prometheus_scrape_config: "{{ internal_prometheus_list + additional_hosts }}"
+  when: extra_prometheus_hosts is defined
 
 - name: Setup MDT prometheus scrape config
   set_fact:
-    prometheus_scrape_config: "{{ internal_prometheus_list + additional_hosts }}"
+    prometheus_scrape_config: "{{ internal_prometheus_list }}"
+  when: extra_prometheus_hosts is not defined
 
 - name: Print variables
   debug:
     msg: >-
-      Data: {{ additional_hosts }}
+      Data: {{ prometheus_scrape_config }}
     verbosity: 2
 -
