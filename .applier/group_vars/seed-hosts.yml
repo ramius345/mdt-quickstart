@@ -57,8 +57,6 @@ openshift_cluster_content:
   - object: MDT Prometheus
     pre_steps:
       - role: mdt-quickstart/secret-discovery
-        vars:
-          dashboard_namespace: "{{ dashboard_namespace }}"
     content:
       - name: MDT Prometheus htpasswd secret
         file: "{{ inventory_dir }}/../prometheus-htpasswd-secret.yml.j2"
