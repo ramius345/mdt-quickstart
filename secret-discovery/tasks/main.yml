@@ -38,7 +38,7 @@
           name: "prometheus"
           orgId: 1
           type: "prometheus"
-          url: "https://prometheus-mdt.{{ dashboard_namespace }}.svc:9091",
+          url: "https://prometheus-mdt.{{ dashboard_namespace }}.svc:9091"
           version: 1
 
 - name: Print variables
