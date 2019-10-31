@@ -111,4 +111,4 @@
   set_fact:
     prometheus_scrape_config: "{{ internal_prometheus_list }}"
   when: extra_prometheus_hosts is not defined
--
+
