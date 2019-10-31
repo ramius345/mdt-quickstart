@@ -96,10 +96,13 @@
   loop: "{{ extra_prometheus_hosts }}"
   register: loop_result
 
-
 - name: Setup additional prometheus instance process list
   set_fact:
     additional_hosts: "{{ loop_result.results | map(attribute='ansible_facts.additional_host') | list }}"
+
+- name: Setup MDT prometheus scrape config
+  set_fact:
+    prometheus_scrape_config: "{{ internal_prometheus_list + additional_hosts }}"
 
 - name: Print variables
   debug:
