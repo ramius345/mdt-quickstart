@@ -55,10 +55,10 @@ openshift_cluster_content:
         tags:
           - dashboard-sdm
   - object: MDT Prometheus
+    pre_steps:
+      - role: mdt-quickstart/secret-discovery
     content:
       - name: MDT Prometheus htpasswd secret
-        pre-steps:
-          - role: mdt-quickstart/secret-discovery
         file: "{{ inventory_dir }}/../prometheus-htpasswd-secret.yml.j2"
         namespace: "{{ dashboard_namespace }}"
         tags:
