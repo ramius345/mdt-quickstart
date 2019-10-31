@@ -31,10 +31,18 @@
         - access: "proxy"
           basicAuth: true
           basicAuthPassword: "{{ orig_grafana_datasources_with_prometheus['datasources'][0]['basicAuthPassword'] }}"
-
+          basicAuthUser: "internal"
+          editable: false
+          jsonData:
+            tlsSkipVerify: "true"
+          name: "prometheus"
+          orgId: 1
+          type: "prometheus"
+          url: "https://prometheus-mdt.{{ dashboard_namespace }}.svc:9091",
+          version: 1
 
 - name: Print variables
   debug:
     msg: >-
-      Data: "{{ new_grafana_datasources_mdt_data }}"
+      Data: "{{ new_grafana_datasources_mdt_data | to_nice_json }}"
     verbosity: 2
