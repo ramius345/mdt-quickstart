@@ -34,7 +34,7 @@
           basicAuthUser: "internal"
           editable: true
           jsonData:
-            tlsSkipVerify: "true"
+            tlsSkipVerify: true
           name: "prometheus"
           orgId: 1
           type: "prometheus"
