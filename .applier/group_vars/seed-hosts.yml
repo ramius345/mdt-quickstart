@@ -1,4 +1,9 @@
 dashboard_namespace: custom-dashboards
+extra_prometheus_hosts:
+  - hostname: "prometheus-k8s-openshift-monitoring.apps.ci-1.cop.rht-labs.com"
+    password: "pxn+CuOVU7ZFIoB3fAzuuDxIUouzrCThcZ2xqYljmdlwEms09jnWI0kIO2xAEnLKnTvPst08V/M60uxYiNGBV7/ocljsPnAdMpURHYPeOvY4lPDeh4wJSE08ccD7VvWJhs22bhM1zBX4dEy9RaIL647G1QumpKQZ2roGwdfbbD92ghLnwEN5NmODWTv33Jgc4MpRv208ZAIiQ2dj9bjtzPcR4x9hSmwgI0BBiJtZSYuvCnaB+c3u15svwzAsP48rDGBeOlEOPUKU0mg/BRAg5RqWMREKH/mwIEc+X7xWVa4Rv4eydtmXkFvUj1qCNBKBgSNur5MHR6H1AhwLTCfA"
+
+
 prometheus_scrape_config:
   - job_name: "federated-prometheus-1"
     scrape_interval: 15s
