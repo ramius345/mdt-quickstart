@@ -111,10 +111,4 @@
   set_fact:
     prometheus_scrape_config: "{{ internal_prometheus_list }}"
   when: extra_prometheus_hosts is not defined
-
-- name: Print variables
-  debug:
-    msg: >-
-      Data: {{ prometheus_scrape_config }}
-    verbosity: 2
 -
