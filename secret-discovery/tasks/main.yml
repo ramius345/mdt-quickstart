@@ -30,7 +30,7 @@
       datasources:
         - access: "proxy"
           basicAuth: true
-          basicAuthPassword: "{{ orig_grafana_datasources_with_prometheus['datasources'] }}"
+          basicAuthPassword: "{{ orig_grafana_datasources_with_prometheus['datasources'][0]['basicAuthPassword'] }}"
 
 
 - name: Print variables
