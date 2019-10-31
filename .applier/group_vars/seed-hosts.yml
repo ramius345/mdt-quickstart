@@ -101,3 +101,8 @@ openshift_cluster_content:
         file: "{{ inventory_dir }}/../prometheus-oauth-cluster-role-binding.yml.j2"
         tags:
           - dashboard-sdm
+      - name: MDT Repoint Grafana Datasource
+        file: "{{ inventory_dir }}/../grafana-mdt-datasources.yml.j2"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
