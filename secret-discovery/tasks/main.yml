@@ -21,16 +21,16 @@
 
 - name: Decode grafana datasources data
   set_fact:
-    orig_grafana_datasources_with_prometheus: {{ grafana_datasources_data.resources[0]['data']['prometheus.yaml'] | b64decode }}
+    orig_grafana_datasources_with_prometheus: "{{ grafana_datasources_data.resources[0]['data']['prometheus.yaml'] | b64decode }}"
 
-- name: Setup new grafana datasources config
-  set_fact:
-    new_grafana_datasources_mdt_data:
-      apiVersion: 1
-      datasources:
-        - access: "proxy"
-          basicAuth: true
-          basicAuthPassword: "{{ orig_grafana_datasources_with_prometheus['datasources']['basicAuthPassword'] }}"
+# - name: Setup new grafana datasources config
+#   set_fact:
+#     new_grafana_datasources_mdt_data:
+#       apiVersion: 1
+#       datasources:
+#         - access: "proxy"
+#           basicAuth: true
+#           basicAuthPassword: "{{ orig_grafana_datasources_with_prometheus['datasources']['basicAuthPassword'] }}"
 
 
 - name: Print variables
