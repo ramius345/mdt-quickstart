@@ -36,5 +36,5 @@
 - name: Print variables
   debug:
     msg: >-
-      Data: {{ orig_grafana_datasources_mdt_data }}
+      Data: {{  orig_grafana_datasources_with_prometheus }}
     verbosity: 2
