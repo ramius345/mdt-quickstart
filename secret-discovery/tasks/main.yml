@@ -83,7 +83,10 @@
 - name: Set extra_prometheus_hosts if the secret exists
   set_fact:
     extra_prometheus_hosts: "{{ grafana_datasources_data.resources[0]['extra_prometheus_hosts'] }}"
-  when: grafana_datasources_data is defined
+  when: 
+    - grafana_datasources_data is defined
+    - grafana_datasources_data.resources[0] is defined
+    - grafana_datasources_data.resources[0]['extra_prometheus_hosts'] is defined
 
 - name: Setup additional prometheus instance configurations loop
   set_fact: 
