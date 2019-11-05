@@ -86,9 +86,6 @@
   when: 
     - extra_prometheus_secret_data is defined
     - extra_prometheus_secret_data.resources[0] is defined
-    - extra_prometheus_secret_data.resources[0]['data'] is defined
-    - extra_prometheus_secret_data.resources[0]['data']['extra_prometheus_hosts'] is defined
-
 
 - name: Print variables
   debug:
