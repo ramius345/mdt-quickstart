@@ -78,23 +78,31 @@
     kind: Secret
     namespace: "{{ dashboard_namespace }}"
     name: extra-prometheus-secrets
-  register: extra_prometheus_secret_data
+  register: extra_prometheus_secret_data_b64
+
+- name: Convert extra prometheus host secret b64
+  set_fact:
+    extra_prometheus_secret_data: "{{ extra_prometheus_secret_data.resources[0]['extra_prometheus_hosts'] | b64decode }}"
+  when: 
+    - extra_prometheus_secret_data is defined
+    - extra_prometheus_secret_data.resources[0] is defined
+    - extra_prometheus_secret_data.resources[0]['extra_prometheus_hosts'] is defined
+
 
 - name: Print variables
   debug:
     msg: >-
       -
+      B64: {{ extra_prometheus_secret_data_b64 }}
       Data: {{ extra_prometheus_secret_data }}
     verbosity: 2
 
 
 - name: Set extra_prometheus_hosts if the secret exists
   set_fact:
-    extra_prometheus_hosts: "{{ extra_prometheus_secret_data.resources[0]['extra_prometheus_hosts'] }}"
-  when: 
-    - extra_prometheus_secret_data is defined
-    - extra_prometheus_secret_data.resources[0] is defined
-    - extra_prometheus_secret_data.resources[0]['extra_prometheus_hosts'] is defined
+    extra_prometheus_hosts: "{{ extra_prometheus_secret_data['extra_prometheus_hosts'] }}"
+  when: extra_prometheus_secret_data is defined
+
 
 - name: Setup additional prometheus instance configurations loop
   set_fact: 
