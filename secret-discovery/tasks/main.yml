@@ -82,7 +82,7 @@
 
 - name: Convert extra prometheus host secret b64
   set_fact:
-    extra_prometheus_secret_data: "{{ extra_prometheus_secret_data_b64.resources[0]['data']['extra_prometheus_hosts'] | b64decode }}"
+    extra_prometheus_secret_data: "{{ extra_prometheus_secret_data_b64.resources[0]['data']['extra_prometheus_hosts'] | b64decode | from_yaml }}"
   when: 
     - extra_prometheus_secret_data_b64 is defined
     - extra_prometheus_secret_data_b64.resources[0] is defined
@@ -94,14 +94,13 @@
   debug:
     msg: >-
       -
-      B64: {{ extra_prometheus_secret_data_b64 }}
       Data: {{ extra_prometheus_secret_data }}
     verbosity: 2
 
 
 - name: Set extra_prometheus_hosts if the secret exists
   set_fact:
-    extra_prometheus_hosts: "{{ extra_prometheus_secret_data['extra_prometheus_hosts'] | from_yaml }}"
+    extra_prometheus_hosts: "{{ extra_prometheus_secret_data['extra_prometheus_hosts'] }}"
   when: extra_prometheus_secret_data is defined
 
 
