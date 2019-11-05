@@ -82,11 +82,12 @@
 
 - name: Convert extra prometheus host secret b64
   set_fact:
-    extra_prometheus_secret_data: "{{ extra_prometheus_secret_data.resources[0]['extra_prometheus_hosts'] | b64decode }}"
+    extra_prometheus_secret_data: "{{ extra_prometheus_secret_data.resources[0]['data']['extra_prometheus_hosts'] | b64decode }}"
   when: 
     - extra_prometheus_secret_data is defined
     - extra_prometheus_secret_data.resources[0] is defined
-    - extra_prometheus_secret_data.resources[0]['extra_prometheus_hosts'] is defined
+    - extra_prometheus_secret_data.resources[0]['data'] is defined
+    - extra_prometheus_secret_data.resources[0]['data']['extra_prometheus_hosts'] is defined
 
 
 - name: Print variables
