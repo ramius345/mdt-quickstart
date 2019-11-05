@@ -90,14 +90,6 @@
     - extra_prometheus_secret_data_b64.resources[0]['data']['extra_prometheus_hosts'] is defined
 
 
-- name: Print variables
-  debug:
-    msg: >-
-      -
-      Data: {{ extra_prometheus_secret_data }}
-    verbosity: 2
-
-
 - name: Set extra_prometheus_hosts if the secret exists
   set_fact:
     extra_prometheus_hosts: "{{ extra_prometheus_secret_data['extra_prometheus_hosts'] }}"
