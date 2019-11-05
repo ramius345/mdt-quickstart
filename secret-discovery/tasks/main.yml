@@ -78,15 +78,23 @@
     kind: Secret
     namespace: "{{ dashboard_namespace }}"
     name: extra-prometheus-secrets
-  register: grafana_datasources_data
+  register: extra_prometheus_secret_data
+
+- name: Print variables
+  debug:
+    msg: >-
+      -
+      Data: {{ extra_prometheus_secret_data }}
+    verbosity: 2
+
 
 - name: Set extra_prometheus_hosts if the secret exists
   set_fact:
-    extra_prometheus_hosts: "{{ grafana_datasources_data.resources[0]['extra_prometheus_hosts'] }}"
+    extra_prometheus_hosts: "{{ extra_prometheus_secret_data.resources[0]['extra_prometheus_hosts'] }}"
   when: 
-    - grafana_datasources_data is defined
-    - grafana_datasources_data.resources[0] is defined
-    - grafana_datasources_data.resources[0]['extra_prometheus_hosts'] is defined
+    - extra_prometheus_secret_data is defined
+    - extra_prometheus_secret_data.resources[0] is defined
+    - extra_prometheus_secret_data.resources[0]['extra_prometheus_hosts'] is defined
 
 - name: Setup additional prometheus instance configurations loop
   set_fact: 
