@@ -148,6 +148,6 @@ if __name__ == "__main__":
         projects = [ proj.strip() for proj in os.environ.get('PROJECTS').split(",") ]
     apps = None
     REGISTRY.register(CommitCollector(username, token, projects, apps))
-    start_http_server(9118)
+    start_http_server(8080)
     while True: time.sleep(1)
 
