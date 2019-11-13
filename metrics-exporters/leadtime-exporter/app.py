@@ -108,7 +108,7 @@ def generate_ld_metrics_list(projects):
         projects = [ project.metadata.name for project in v1_projects.get().items ]
 
     for project in projects:    
-        v1_builds = dyn_client.resources.get(api_version='v1',  kind='Build')
+        v1_builds = dyn_client.resources.get(api_version='build.openshift.io/v1',  kind='Build')
         builds = v1_builds.get(namespace=project)
 
         v1_replicationControllers = dyn_client.resources.get(api_version='v1',  kind='ReplicationController')
