@@ -1,0 +1,9 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: leadtime-exporter
+spec:
+  template:
+    spec:
+      serviceAccount: robot
+      serviceAccountName: robot

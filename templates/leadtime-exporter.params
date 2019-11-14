@@ -1,0 +1,2 @@
+APP_NAME=leadtime-exporter
+SOURCE_CONTEXT_DIR=metrics-exporters/leadtime-exporter
