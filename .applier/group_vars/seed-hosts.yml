@@ -97,11 +97,11 @@ openshift_cluster_content:
         template: "{{ inventory_dir }}/../templates/exporter.yaml"
         namespace: "{{ exporter_namespace }}"
         #Bug: documentation says this should be a hash
-        params: "{{ inventory_dir }}/../templates/commit-exporter.params"
+        params: "{{ inventory_dir }}/../templates/leadtime-exporter.params"
         tags:
           - exporters
       - name: Lead Time Exporter DC SA Patch
-        file: "{{ inventory_dir }}/../exporters-yaml/sa-patch.yaml"
+        template: "{{ inventory_dir }}/../exporters-yaml/sa-patch.yaml"
         action: patch
         tags:
           - exporters
