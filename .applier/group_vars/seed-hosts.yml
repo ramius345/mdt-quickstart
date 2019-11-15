@@ -77,10 +77,14 @@ openshift_cluster_content:
         tags:
           - exporters
       - name: Commit Time Exporter
-        template: "{{ inventory_dir }}/../templates/exporter.yaml"
+        file: "{{ inventory_dir }}/../exporters-yaml/exporter.yaml.j2"
         namespace: "{{ exporter_namespace }}"
-        #Bug: documentation says this should be a hash
-        params: "{{ inventory_dir }}/../templates/commit-exporter.params"
+        jinja_vars:
+          app_name: commit-time-exporter
+          source_context_dir: metrics-exporters/commit-time-exporter
+          source_ref: master
+          source_url: https://github.com/redhat-cop/mdt-quickstart.git
+          env_secret_name: github-secret
         tags:
           - exporters
       - name: Lead Time Exporter Service Account
@@ -94,14 +98,14 @@ openshift_cluster_content:
         tags:
           - exporters
       - name: Lead Time Exporter
-        template: "{{ inventory_dir }}/../templates/exporter.yaml"
+        file: "{{ inventory_dir }}/../exporters-yaml/exporter.yaml.j2"
         namespace: "{{ exporter_namespace }}"
-        #Bug: documentation says this should be a hash
-        params: "{{ inventory_dir }}/../templates/leadtime-exporter.params"
-        tags:
-          - exporters
-      - name: Lead Time Exporter DC SA Patch
-        template: "{{ inventory_dir }}/../exporters-yaml/sa-patch.yaml"
-        action: patch
+        jinja_vars:
+          app_name: leadtime-exporter
+          source_context_dir: metrics-exporters/leadtime-exporter
+          source_ref: master
+          source_url: https://github.com/redhat-cop/mdt-quickstart.git
+          env_secret_name: github-secret
+          service_account: robot
         tags:
           - exporters

@@ -1,3 +1,0 @@
-APP_NAME=commit-time-exporter
-SOURCE_CONTEXT_DIR=metrics-exporters/commit-time-exporter
-
