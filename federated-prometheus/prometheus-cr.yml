@@ -5,6 +5,9 @@ metadata:
   labels:
     prometheus: prometheus-mdt
 spec:
+  thanos:
+    baseImage: quay.io/thanos/thanos
+    version: v0.8.1
   replicas: 2
   serviceAccountName: prometheus-mdt
   serviceMonitorSelector:
