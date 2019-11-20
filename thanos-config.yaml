@@ -1,0 +1,8 @@
+type: s3
+config:
+  bucket: thanos
+  endpoint: s3.noobaa.svc
+  access_key: <redacted>
+  secret_key: <redacted>
+  http_config:
+    insecure_skip_verify: true

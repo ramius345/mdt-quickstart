@@ -8,7 +8,10 @@ spec:
   thanos:
     baseImage: quay.io/thanos/thanos
     version: v0.8.1
-  replicas: 2
+    objectStorageConfig:
+      key: thanos.yaml
+      name: thanos-objstore-config
+  replicas: 1
   serviceAccountName: prometheus-mdt
   serviceMonitorSelector:
     matchLabels:
