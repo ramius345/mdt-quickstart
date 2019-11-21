@@ -1,5 +1,5 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: thanos-query
@@ -27,6 +27,7 @@ spec:
         - "--http-address=:10902"
         - "--grpc-address=:10901"
         - "--store=thanos-mdt-sidecar:10901"
+        - "--store=thanos-mdt-store:10901"
         ports:
         - name: query-http
           containerPort: 10902

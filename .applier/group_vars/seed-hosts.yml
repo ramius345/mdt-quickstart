@@ -55,6 +55,11 @@ openshift_cluster_content:
         namespace: "{{ dashboard_namespace }}"
         tags:
           - dashboard-sdm
+      - name: MDT Thanos Store
+        file: "{{ inventory_dir }}/../federated-prometheus/thanos-store.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
       - name: MDT Thanos Service
         file: "{{ inventory_dir }}/../federated-prometheus/thanos-svc.yml"
         namespace: "{{ dashboard_namespace }}"
