@@ -50,6 +50,16 @@ openshift_cluster_content:
         file: "{{ inventory_dir }}/../federated-prometheus/prometheus-oauth-cluster-role-binding.yml.j2"
         tags:
           - dashboard-sdm
+      - name: MDT Thanos Query
+        file: "{{ inventory_dir }}/../federated-prometheus/thanos-query.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
+      - name: MDT Thanos Service
+        file: "{{ inventory_dir }}/../federated-prometheus/thanos-svc.yml"
+        namespace: "{{ dashboard_namespace }}"
+        tags:
+          - dashboard-sdm
       - name: MDT Repoint Grafana Datasource
         file: "{{ inventory_dir }}/../federated-prometheus/grafana-mdt-datasources.yml.j2"
         namespace: "{{ dashboard_namespace }}"

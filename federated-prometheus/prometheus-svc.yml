@@ -24,27 +24,6 @@ spec:
     clientIP:
       timeoutSeconds: 10800
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    prometheus: prometheus-mdt
-  name: thanos-mdt
-spec:
-  ports:
-  - name: thanos
-    port: 10902
-    protocol: TCP
-    targetPort: 10902
-  selector:
-    app: prometheus
-    prometheus: prometheus-mdt
-  sessionAffinity: ClientIP
-  sessionAffinityConfig:
-    clientIP:
-      timeoutSeconds: 10800
-  type: ClusterIP
 
 
 
