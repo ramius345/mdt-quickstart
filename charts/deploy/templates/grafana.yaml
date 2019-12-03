@@ -2,29 +2,29 @@
 apiVersion: integreatly.org/v1alpha1
 kind: Grafana
 metadata:
-  name: example-grafana
+  name: grafana-mdt
 spec:
-  ingress:
-    enabled: True
-    labels:
-      app: grafana
   service:
     labels:
       app: grafana
   config:
     log:
       mode: "console"
-      level: "warn"
-    security:
-      admin_user: "root"
-      admin_password: "secret"
+      level: "debug"
     auth:
-      disable_login_form: False
+      disable_login_form: True
       disable_signout_menu: True
     auth.basic:
       enabled: False
-    auth.anonymous:
+    auth.proxy:
+      auto_sign_up: True
       enabled: True
-  dashboardLabelSelector:
-    - matchExpressions:
-        - {key: app, operator: In, values: [grafana]}
+      header_name: X-Forwarded-User
+    users:
+      allow_sign_up: True
+      auto_assign_org: True
+      auto_assign_org_role: Admin
+    dashboardLabelSelector:
+      - matchExpressions:
+          - {key: app, operator: In, values: [grafana]}
+    
