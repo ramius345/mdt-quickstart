@@ -17,6 +17,12 @@ if [ "$1" == "--values" ] && [ "x" != "x$2" ]; then
     EXTRA_VALUES="$1 $2"
 fi
 
+if [ "$1" == "--debug" ] || [ "$2" == "--debug" ]; then
+    OUTPUT_HANDLER=less
+else
+    OUTPUT_HANDLER="oc apply -f - -n pelorus"
+fi
+
 set -o pipefail
 helm template \
     --namespace pelorus \
@@ -24,11 +30,12 @@ helm template \
     --set openshift_prometheus_htpasswd_auth=$PROMETHEUS_HTPASSWD_AUTH \
     --set openshift_prometheus_basic_auth_pass=$GRAFANA_DATASOURCE_PASSWORD \
     $EXTRA_VALUES \
-    ./charts/deploy/ | oc apply -f - -n pelorus
+    ./charts/deploy/ | $OUTPUT_HANDLER
 HELM_STATUS=$?
 
 if [ $HELM_STATUS -ne 0 ]; then
     echo "Error in template processing and application!"
 fi
+
 
 exit $HELM_STATUS
